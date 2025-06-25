@@ -2,246 +2,183 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>ตะกร้าสินค้า - TRENDTRINITY</title>
+  <title>TRENDTRINITY - ตะกร้าสินค้า</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-    body {
+
+    html, body {
+      margin: 0; padding: 0;
       font-family: 'Poppins', sans-serif;
-      max-width: 800px;
-      margin: 40px auto;
-      background: #f9f9f9;
-      padding: 20px;
+      background-image: url('T1.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
       color: #2c3e50;
+      display: flex;
+      flex-direction: column;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    li {
-      background: white;
-      margin-bottom: 15px;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .item-wrapper {
+    header {
+      background: #34495e;
+      color: white;
+      padding: 15px 30px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
     }
 
-    .slider {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .slider-container {
-      display: flex;
-      overflow: hidden;
-      width: 60px;
-      height: 60px;
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: 500;
+      padding: 8px 12px;
       border-radius: 6px;
-      flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    nav a:hover {
+      background: #1abc9c;
     }
 
-    .slider-container img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      flex-shrink: 0;
-      cursor: pointer;
+    main {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.85);
+      margin: 30px auto;
+      border-radius: 12px;
+      max-width: 900px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      overflow-x: auto;
     }
 
-    .item-info {
-      flex-grow: 1;
-      margin-left: 15px;
+    h2 {
+      text-align: center;
+      margin-top: 0;
+      color: #34495e;
     }
 
-    .item-name {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th {
+      background-color: #2980b9;
+      color: white;
       font-weight: 600;
-      margin-bottom: 6px;
     }
 
-    .item-price {
-      color: #27ae60;
+    img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .total {
+      margin-top: 20px;
+      text-align: right;
+      font-size: 18px;
       font-weight: 700;
+      color: #27ae60;
     }
 
-    .remove-btn {
+    footer {
+      background: #34495e;
+      color: white;
+      padding: 20px 30px;
+      text-align: center;
+      margin-top: auto;
+    }
+
+    button.remove-btn {
       background: #e74c3c;
       border: none;
       color: white;
-      padding: 8px 12px;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
-      margin-left: 10px;
+      transition: background 0.3s;
+    }
+    button.remove-btn:hover {
+      background: #c0392b;
     }
 
-    .zoom-btn {
-      background: #34495e;
-      border: none;
-      color: white;
-      padding: 6px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-left: 8px;
-    }
-
-    #total-price {
-      font-size: 18px;
-      font-weight: 700;
-      margin-top: 20px;
-      text-align: right;
-    }
-
-    a.button-link {
-      display: inline-block;
-      margin-top: 25px;
-      background: #2980b9;
-      color: white;
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-
-    /* ป๊อปอัพซูม */
-    #zoomPopup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    #zoomPopup img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-    }
-
-    .close-zoom {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 32px;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      user-select: none;
-    }
   </style>
 </head>
 <body>
-  <h1>ตะกร้าสินค้า</h1>
-  <ul id="cart-list"></ul>
-  <p id="total-price">รวมทั้งสิ้น: ฿0</p>
-  <a href="checkout.html" class="button-link">ดำเนินการสั่งซื้อ</a>
-  <br><a href="index.html">← กลับหน้าร้าน</a>
 
-  <!-- ป๊อปอัพซูมรูป -->
-  <div id="zoomPopup" onclick="closeZoom(event)">
-    <span class="close-zoom">×</span>
-    <img id="zoomImage" src="" alt="Zoomed Image" />
-  </div>
+<header>
+  <div><strong>TRENDTRINITY</strong> - ตะกร้าสินค้า</div>
+  <nav>
+    <a href="index.html">หน้าร้าน</a>
+    <a href="cart.html">ตะกร้า</a>
+    <a href="admin.html">หลังบ้าน</a>
+  </nav>
+</header>
 
-  <script>
-    function renderCart() {
-      const cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const list = document.getElementById("cart-list");
-      const totalPrice = document.getElementById("total-price");
-      list.innerHTML = "";
-      let total = 0;
+<main>
+  <h2>รายการสินค้าที่อยู่ในตะกร้า</h2>
+  <table id="cartTable">
+    <thead>
+      <tr>
+        <th>รูป</th>
+        <th>ชื่อสินค้า</th>
+        <th>ราคา (฿)</th>
+        <th>ลบ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- รายการสินค้าจะเพิ่มตรงนี้ -->
+    </tbody>
+  </table>
+  <div class="total" id="totalPrice">ราคารวม: 0 ฿</div>
+</main>
 
-      if (cart.length === 0) {
-        list.innerHTML = "<li>ตะกร้าว่างเปล่า</li>";
-        totalPrice.textContent = "รวมทั้งสิ้น: ฿0";
-        return;
-      }
+<footer>
+  &copy; 2025 TRENDTRINITY
+</footer>
 
-      cart.forEach((item, index) => {
-        total += item.price;
-        const li = document.createElement("li");
+<script>
+  function loadCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const tbody = document.querySelector('#cartTable tbody');
+    tbody.innerHTML = '';
 
-        // รูปภาพเป็น array หรือ string เดี่ยว
-        const images = Array.isArray(item.img) ? item.img : [item.img];
-        const sliderId = `slider-${index}`;
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price;
+      const tr = document.createElement('tr');
 
-        let sliderHTML = `
-          <button onclick="prevSlide('${sliderId}', ${JSON.stringify(images).replace(/"/g, '&quot;')})">‹</button>
-          <div class="slider-container" id="${sliderId}">
-            <img src="${images[0]}" onclick="zoomImage('${images[0]}')" />
-          </div>
-          <button onclick="nextSlide('${sliderId}', ${JSON.stringify(images).replace(/"/g, '&quot;')})">›</button>
-        `;
+      tr.innerHTML = `
+        <td><img src="${item.img}" alt="${item.name}"></td>
+        <td>${item.name}</td>
+        <td>${item.price.toLocaleString()}</td>
+        <td><button class="remove-btn" onclick="removeItem(${index})">ลบ</button></td>
+      `;
 
-        li.innerHTML = `
-          <div class="item-wrapper">
-            <div class="slider">${sliderHTML}</div>
-            <div class="item-info">
-              <div class="item-name">${item.name}</div>
-              <div class="item-price">฿${item.price}</div>
-            </div>
-            <button class="remove-btn" onclick="removeItem(${index})">ลบ</button>
-            <button class="zoom-btn" onclick="zoomImage('${images[0]}')">ซูม</button>
-          </div>
-        `;
+      tbody.appendChild(tr);
+    });
 
-        list.appendChild(li);
-      });
+    document.getElementById('totalPrice').textContent = `ราคารวม: ${total.toLocaleString()} ฿`;
+  }
 
-      totalPrice.textContent = "รวมทั้งสิ้น: ฿" + total;
-    }
+  function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCart();
+  }
 
-    function removeItem(index) {
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      cart.splice(index, 1);
-      localStorage.setItem("cart", JSON.stringify(cart));
-      renderCart();
-    }
+  window.onload = loadCart;
+</script>
 
-    function zoomImage(src) {
-      const popup = document.getElementById("zoomPopup");
-      const img = document.getElementById("zoomImage");
-      img.src = src;
-      popup.style.display = "flex";
-    }
-
-    function closeZoom(event) {
-      // กดปิดเฉพาะถ้ากดตรง background หรือกากบาท
-      if(event.target.id === 'zoomPopup' || event.target.classList.contains('close-zoom')){
-        document.getElementById("zoomPopup").style.display = "none";
-      }
-    }
-
-    function nextSlide(containerId, images) {
-      const container = document.getElementById(containerId);
-      const currentSrc = container.querySelector("img").src.split('/').pop();
-      let idx = images.findIndex(i => i.endsWith(currentSrc));
-      idx = (idx + 1) % images.length;
-      container.innerHTML = `<img src="${images[idx]}" onclick="zoomImage('${images[idx]}')" />`;
-    }
-
-    function prevSlide(containerId, images) {
-      const container = document.getElementById(containerId);
-      const currentSrc = container.querySelector("img").src.split('/').pop();
-      let idx = images.findIndex(i => i.endsWith(currentSrc));
-      idx = (idx - 1 + images.length) % images.length;
-      container.innerHTML = `<img src="${images[idx]}" onclick="zoomImage('${images[idx]}')" />`;
-    }
-
-    window.onload = renderCart;
-  </script>
 </body>
 </html>
