@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <title>TRENDTRINITY - ตะกร้าสินค้า</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
   body {
     font-family: 'Poppins', sans-serif;
     padding: 20px;
@@ -13,13 +14,64 @@
     background-repeat: no-repeat;
     min-height: 100vh;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header {
+    background: #34495e;
+    color: white;
+    padding: 15px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header img {
+    height: 40px;
+  }
+  nav {
+    display: flex;
+    gap: 20px;
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.3s;
+  }
+  nav a:hover {
+    background: #1abc9c;
+  }
+  .contact-bar {
+    background: #2c3e50;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+  }
+  .contact-bar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .contact-bar img {
+    width: 24px;
+    height: 24px;
   }
   .container {
     max-width: 700px;
-    margin: auto;
-    background: rgba(255,255,255,0.9);
+    margin: 20px auto 40px auto;
+    background: rgba(255,255,255,0.95);
     padding: 20px;
     border-radius: 12px;
+    flex-grow: 1;
   }
   h2 {
     text-align: center;
@@ -51,14 +103,23 @@
     background: #c0392b;
   }
   #orderBtn {
-    margin-top: 30px;
+    margin-top: 20px;
     width: 100%;
     background: #2980b9;
     padding: 14px;
     font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
   }
   #orderBtn:hover {
     background: #1f6391;
+  }
+  #orderBtn:disabled {
+    background: #7f8c8d;
+    cursor: not-allowed;
   }
   .empty {
     text-align: center;
@@ -66,16 +127,69 @@
     color: #666;
     margin-top: 40px;
   }
+  form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  input, textarea {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+  }
+  label {
+    font-weight: 600;
+  }
+  footer {
+    background: #34495e;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+  }
 </style>
 </head>
 <body>
-  <div class="container">
-    <h2>ตะกร้าสินค้าของคุณ</h2>
-    <div class="cart-list" id="cartList"></div>
-    <button id="orderBtn">สั่งซื้อสินค้า</button>
-  </div>
+
+<header>
+  <img src="trendtrinity-logo.png" alt="TRENDTRINITY Logo" />
+  <nav>
+    <a href="index.html">หน้าร้าน</a>
+    <a href="cart.html">ตะกร้า</a>
+    <a href="admin.html">หลังบ้าน</a>
+  </nav>
+</header>
+
+<div class="contact-bar">
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"> Facebook</a>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"> Instagram</a>
+  <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok"> TikTok</a>
+  <a href="#"><img src="Line.png" alt="LINE"> LINE</a>
+</div>
+
+<div class="container">
+  <h2>ตะกร้าสินค้าของคุณ</h2>
+  <div class="cart-list" id="cartList"></div>
+
+  <form id="orderForm">
+    <label for="customerName">ชื่อผู้สั่งซื้อ</label>
+    <input type="text" id="customerName" name="customerName" required placeholder="ชื่อของคุณ">
+
+    <label for="customerAddress">ที่อยู่สำหรับจัดส่ง</label>
+    <textarea id="customerAddress" name="customerAddress" required rows="3" placeholder="ระบุที่อยู่สำหรับจัดส่ง"></textarea>
+
+    <button type="submit" id="orderBtn">สั่งซื้อสินค้า</button>
+  </form>
+</div>
+
+<footer>
+  &copy; 2025 TRENDTRINITY
+</footer>
 
 <script>
+  // โหลดตะกร้า
   function renderCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const container = document.getElementById('cartList');
@@ -108,17 +222,36 @@
   }
 
   function sendNotification(orderDetails) {
-    // TODO: เชื่อม API แจ้งเตือน เช่น Telegram หรือ Email ในอนาคต
+    // โค้ดส่งแจ้งเตือนจริง เช่น Telegram หรือ Email
     console.log('ส่งแจ้งเตือนคำสั่งซื้อ:', orderDetails);
   }
 
-  function order() {
+  // ฟังก์ชันตรวจสอบข้อมูลก่อนสั่งซื้อ
+  function validateForm(name, address) {
+    if(name.trim() === '' || address.trim() === '') {
+      alert('กรุณากรอกชื่อและที่อยู่ให้ครบถ้วน');
+      return false;
+    }
+    return true;
+  }
+
+  document.getElementById('orderForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('customerName').value;
+    const address = document.getElementById('customerAddress').value;
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
     if(cart.length === 0) {
       alert('ตะกร้าว่าง ไม่มีสินค้าให้สั่งซื้อ');
       return;
     }
-    let summary = 'สั่งซื้อสินค้า:\n';
+    if(!validateForm(name, address)) {
+      return;
+    }
+
+    // สรุปคำสั่งซื้อพร้อมข้อมูลลูกค้า
+    let summary = `ชื่อผู้สั่งซื้อ: ${name}\nที่อยู่จัดส่ง:\n${address}\n\nรายการสินค้า:\n`;
     let total = 0;
     cart.forEach(item => {
       summary += `- ${item.name} ราคา ${item.price} บาท\n`;
@@ -131,12 +264,12 @@
       alert('สั่งซื้อสำเร็จ ขอบคุณครับ!');
       localStorage.removeItem('cart');
       renderCart();
+      this.reset(); // ล้างฟอร์ม
     }
-  }
-
-  document.getElementById('orderBtn').addEventListener('click', order);
+  });
 
   renderCart();
 </script>
+
 </body>
 </html>
