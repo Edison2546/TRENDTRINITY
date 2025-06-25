@@ -1,184 +1,142 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>TRENDTRINITY - ตะกร้าสินค้า</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-    html, body {
-      margin: 0; padding: 0;
-      font-family: 'Poppins', sans-serif;
-      background-image: url('T1.JPG');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      min-height: 100vh;
-      color: #2c3e50;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      background: #34495e;
-      color: white;
-      padding: 15px 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      font-weight: 500;
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-    nav a:hover {
-      background: #1abc9c;
-    }
-
-    main {
-      flex: 1;
-      background: rgba(255, 255, 255, 0.85);
-      margin: 30px auto;
-      border-radius: 12px;
-      max-width: 900px;
-      padding: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      overflow-x: auto;
-    }
-
-    h2 {
-      text-align: center;
-      margin-top: 0;
-      color: #34495e;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-    th, td {
-      padding: 12px 10px;
-      border-bottom: 1px solid #ddd;
-      text-align: center;
-    }
-
-    th {
-      background-color: #2980b9;
-      color: white;
-      font-weight: 600;
-    }
-
-    img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    .total {
-      margin-top: 20px;
-      text-align: right;
-      font-size: 18px;
-      font-weight: 700;
-      color: #27ae60;
-    }
-
-    footer {
-      background: #34495e;
-      color: white;
-      padding: 20px 30px;
-      text-align: center;
-      margin-top: auto;
-    }
-
-    button.remove-btn {
-      background: #e74c3c;
-      border: none;
-      color: white;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    button.remove-btn:hover {
-      background: #c0392b;
-    }
-
-  </style>
+<meta charset="UTF-8" />
+<title>TRENDTRINITY - ตะกร้าสินค้า</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    background-image: url('T1.JPG');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    color: #333;
+  }
+  .container {
+    max-width: 700px;
+    margin: auto;
+    background: rgba(255,255,255,0.9);
+    padding: 20px;
+    border-radius: 12px;
+  }
+  h2 {
+    text-align: center;
+  }
+  .cart-list {
+    margin-top: 20px;
+  }
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+  }
+  .cart-item:last-child {
+    border-bottom: none;
+  }
+  button {
+    cursor: pointer;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background 0.3s ease;
+  }
+  button:hover {
+    background: #c0392b;
+  }
+  #orderBtn {
+    margin-top: 30px;
+    width: 100%;
+    background: #2980b9;
+    padding: 14px;
+    font-size: 18px;
+  }
+  #orderBtn:hover {
+    background: #1f6391;
+  }
+  .empty {
+    text-align: center;
+    font-style: italic;
+    color: #666;
+    margin-top: 40px;
+  }
+</style>
 </head>
 <body>
-
-<header>
-  <div><strong>TRENDTRINITY</strong> - ตะกร้าสินค้า</div>
-  <nav>
-    <a href="index.html">หน้าร้าน</a>
-    <a href="cart.html">ตะกร้า</a>
-    <a href="admin.html">หลังบ้าน</a>
-  </nav>
-</header>
-
-<main>
-  <h2>รายการสินค้าที่อยู่ในตะกร้า</h2>
-  <table id="cartTable">
-    <thead>
-      <tr>
-        <th>รูป</th>
-        <th>ชื่อสินค้า</th>
-        <th>ราคา (฿)</th>
-        <th>ลบ</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- รายการสินค้าจะเพิ่มตรงนี้ -->
-    </tbody>
-  </table>
-  <div class="total" id="totalPrice">ราคารวม: 0 ฿</div>
-</main>
-
-<footer>
-  &copy; 2025 TRENDTRINITY
-</footer>
+  <div class="container">
+    <h2>ตะกร้าสินค้าของคุณ</h2>
+    <div class="cart-list" id="cartList"></div>
+    <button id="orderBtn">สั่งซื้อสินค้า</button>
+  </div>
 
 <script>
-  function loadCart() {
+  function renderCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const tbody = document.querySelector('#cartTable tbody');
-    tbody.innerHTML = '';
+    const container = document.getElementById('cartList');
+    container.innerHTML = '';
 
-    let total = 0;
+    if (cart.length === 0) {
+      container.innerHTML = '<p class="empty">ตะกร้าว่าง</p>';
+      document.getElementById('orderBtn').disabled = true;
+      return;
+    } else {
+      document.getElementById('orderBtn').disabled = false;
+    }
+
     cart.forEach((item, index) => {
-      total += item.price;
-      const tr = document.createElement('tr');
-
-      tr.innerHTML = `
-        <td><img src="${item.img}" alt="${item.name}"></td>
-        <td>${item.name}</td>
-        <td>${item.price.toLocaleString()}</td>
-        <td><button class="remove-btn" onclick="removeItem(${index})">ลบ</button></td>
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `
+        <div>${item.name} - ฿${item.price}</div>
+        <button onclick="removeFromCart(${index})">ลบ</button>
       `;
-
-      tbody.appendChild(tr);
+      container.appendChild(div);
     });
-
-    document.getElementById('totalPrice').textContent = `ราคารวม: ${total.toLocaleString()} ฿`;
   }
 
-  function removeItem(index) {
+  function removeFromCart(index) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
-    loadCart();
+    renderCart();
   }
 
-  window.onload = loadCart;
-</script>
+  function sendNotification(orderDetails) {
+    // TODO: เชื่อม API แจ้งเตือน เช่น Telegram หรือ Email ในอนาคต
+    console.log('ส่งแจ้งเตือนคำสั่งซื้อ:', orderDetails);
+  }
 
+  function order() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if(cart.length === 0) {
+      alert('ตะกร้าว่าง ไม่มีสินค้าให้สั่งซื้อ');
+      return;
+    }
+    let summary = 'สั่งซื้อสินค้า:\n';
+    let total = 0;
+    cart.forEach(item => {
+      summary += `- ${item.name} ราคา ${item.price} บาท\n`;
+      total += item.price;
+    });
+    summary += `รวมทั้งสิ้น: ${total} บาท`;
+
+    if(confirm(summary + '\n\nยืนยันการสั่งซื้อ?')) {
+      sendNotification(summary);
+      alert('สั่งซื้อสำเร็จ ขอบคุณครับ!');
+      localStorage.removeItem('cart');
+      renderCart();
+    }
+  }
+
+  document.getElementById('orderBtn').addEventListener('click', order);
+
+  renderCart();
+</script>
 </body>
 </html>
