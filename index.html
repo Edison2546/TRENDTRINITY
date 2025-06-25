@@ -1,150 +1,73 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <title>TRENDTRINITY - ร้านขายเสื้อ</title>
+  <meta charset="UTF-8">
+  <title>TRENDTRINITY - หน้าร้าน</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-    html, body {
-      height: 100%;
-      margin: 0; padding: 0;
+    body {
+      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background-image: url('T1.JPG');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      color: #2c3e50;
-      display: flex; flex-direction: column;
-      min-height: 100vh;
+      background: #f5f5f5;
     }
-    .wrapper { flex: 1; }
     header {
       background: #34495e;
       color: white;
       padding: 15px 30px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    nav {
-      display: flex; gap: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     nav a {
-      color: white; text-decoration: none; font-weight: 500;
-      padding: 8px 12px; border-radius: 6px;
-      transition: background 0.3s;
-    }
-    nav a:hover {
-      background: #1abc9c;
-    }
-    .contact-bar {
-      background: #2c3e50;
-      padding: 10px 30px;
-      display: flex; justify-content: center; gap: 30px; align-items: center;
-    }
-    .contact-bar a {
-      color: white; text-decoration: none;
-      display: flex; align-items: center; gap: 6px;
-      font-weight: 600; font-size: 15px;
-    }
-    .contact-bar img {
-      width: 24px; height: 24px;
-    }
-    .hero-message {
-      text-align: center;
-      margin-top: 40px;
-      color: #fff;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
-      padding: 20px;
-      background: rgba(0,0,0,0.4);
-      max-width: 800px;
-      margin-left: auto; margin-right: auto;
-      border-radius: 12px;
-      position: relative;
-    }
-    .hero-message h2 { font-size: 32px; margin-bottom: 10px; }
-    .hero-message p { font-size: 18px; margin: 0; }
-    .close-btn {
-      position: absolute;
-      top: 10px; right: 14px;
-      background: none; border: none;
-      color: white; font-size: 24px; font-weight: bold;
-      cursor: pointer;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-weight: bold;
     }
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 25px;
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      max-width: 1200px;
+      margin: auto;
     }
     .product {
       background: white;
       border-radius: 12px;
       padding: 15px;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-      display: flex; flex-direction: column; align-items: center; text-align: center;
-      transition: transform 0.2s ease;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .product:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgb(0 0 0 / 0.15);
-    }
-
     .slider {
       display: flex;
       align-items: center;
-      gap: 5px;
-      margin-bottom: 12px;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 10px;
     }
-    .slider-container {
-      width: 180px;
-      height: 180px;
-      overflow: hidden;
-      border-radius: 10px;
-      flex-shrink: 0;
-    }
-    .slider-container img {
-      width: 100%;
-      height: 100%;
+    .slider img {
+      width: 160px;
+      height: 160px;
       object-fit: cover;
+      border-radius: 10px;
       cursor: pointer;
     }
-
-    .product h3 { margin: 0 0 8px; font-weight: 600; font-size: 18px; }
-    .product p.price {
-      font-weight: 700;
-      color: #27ae60;
-      margin: 0 0 12px;
-      font-size: 16px;
-    }
-    .product button {
+    button {
       background: #2980b9;
       color: white;
       border: none;
-      border-radius: 8px;
-      padding: 10px 18px;
+      padding: 8px 15px;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 15px;
-      transition: background 0.3s ease;
-    }
-    .product button:hover {
-      background: #1f6391;
     }
 
-    footer {
-      background: #34495e;
-      color: white;
-      padding: 30px 30px;
-      text-align: center;
-    }
-
-    /* 🔍 ป๊อปอัพซูม */
+    /* ป๊อปอัปซูม */
     #zoomPopup {
       display: none;
       position: fixed;
       top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      width: 100vw;
+      height: 100vh;
       background: rgba(0,0,0,0.8);
       justify-content: center;
       align-items: center;
@@ -153,51 +76,30 @@
     #zoomPopup img {
       max-width: 90%;
       max-height: 90%;
-      border-radius: 12px;
+      border-radius: 10px;
     }
     .close-zoom {
       position: absolute;
       top: 20px;
       right: 30px;
-      font-size: 32px;
+      font-size: 30px;
       color: white;
       cursor: pointer;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <header>
-      <img src="trendtrinity-logo.png" alt="TRENDTRINITY Logo" />
-      <nav>
-        <a href="index.html">หน้าร้าน</a>
-        <a href="cart.html">ตะกร้า</a>
-        <a href="admin.html">หลังบ้าน</a>
-      </nav>
-    </header>
+  <header>
+    <h2>TRENDTRINITY</h2>
+    <nav>
+      <a href="index.html">หน้าร้าน</a>
+      <a href="cart.html">ตะกร้า</a>
+    </nav>
+  </header>
 
-    <div class="contact-bar">
-      <a href="#"><img src="facebook-icon.png" /> Facebook</a>
-      <a href="#"><img src="instagram-icon.png" /> Instagram</a>
-      <a href="#"><img src="tiktok-icon.png" /> TikTok</a>
-      <a href="#"><img src="Line.png" /> LINE</a>
-    </div>
+  <section class="products" id="products-list"></section>
 
-    <div class="hero-message" id="heroMessage">
-      <button class="close-btn" onclick="closeHero()">×</button>
-      <h2>ยินดีต้อนรับสู่ TRENDTRINITY</h2>
-      <p>เสื้อผ้าวัยรุ่นสไตล์ใหม่ไม่เหมือนใคร อัปเดตโปรโมชั่นทุกสัปดาห์ สั่งตอนนี้!</p>
-    </div>
-
-    <section class="products" id="products-list">
-      <!-- สินค้าจะแสดงที่นี่ -->
-    </section>
-  </div>
-
-  <footer>&copy; 2025 TRENDTRINITY</footer>
-
-  <!-- 🔍 ป๊อปอัพซูม -->
+  <!-- ป๊อปอัปซูมรูป -->
   <div id="zoomPopup" onclick="closeZoom()">
     <span class="close-zoom">×</span>
     <img id="zoomImage" src="" />
@@ -209,16 +111,22 @@
         id: 1,
         name: "TrendtrinityX",
         price: 599,
-        img: ["X1.jpg", "jacket-product.jpg", "X3.jpg"]
+        img: ["X1.jpg", "jacket-product.jpg", "X1-3.jpg"]
       },
       {
         id: 2,
         name: "TrendtrinityOversize",
         price: 399,
-        img: ["Black1.jpg", "Black2.JPG"]
+        img: ["Black.png.jpg", "Black2.JPG"]
       },
       {
         id: 3,
+        name: "Coming Soon",
+        price: 0,
+        img: ["C1.jpg"]
+      },
+      {
+        id: 4,
         name: "Coming Soon",
         price: 0,
         img: ["C1.jpg"]
@@ -226,62 +134,54 @@
     ];
 
     function renderProducts() {
-      const container = document.getElementById("products-list");
-      container.innerHTML = "";
-      products.forEach((p, index) => {
-        const div = document.createElement("div");
-        div.className = "product";
-        const sliderId = `slider-${index}`;
-        const images = p.img;
-
-        div.innerHTML = `
-          <div class="slider">
-            <button onclick="prevSlide('${sliderId}')">‹</button>
-            <div class="slider-container" id="${sliderId}" data-images='${JSON.stringify(images)}'>
-              <img src="${images[0]}" onclick="zoomImage('${images[0]}')" />
+      const list = document.getElementById("products-list");
+      list.innerHTML = "";
+      products.forEach((p, i) => {
+        const sliderId = `slider-${i}`;
+        list.innerHTML += `
+          <div class="product">
+            <div class="slider">
+              <button onclick="prevSlide('${sliderId}', ${JSON.stringify(p.img)})">‹</button>
+              <div id="${sliderId}">
+                <img src="${p.img[0]}" onclick="zoomImage('${p.img[0]}')" />
+              </div>
+              <button onclick="nextSlide('${sliderId}', ${JSON.stringify(p.img)})">›</button>
             </div>
-            <button onclick="nextSlide('${sliderId}')">›</button>
+            <h3>${p.name}</h3>
+            <p>฿${p.price}</p>
+            <button onclick="addToCart(${p.id})">เพิ่มลงตะกร้า</button>
           </div>
-          <h3>${p.name}</h3>
-          <p class="price">฿${p.price}</p>
-          <button onclick="addToCart(${p.id})">เพิ่มลงตะกร้า</button>
         `;
-        container.appendChild(div);
       });
     }
 
     function zoomImage(src) {
-      const popup = document.getElementById("zoomPopup");
-      const img = document.getElementById("zoomImage");
-      img.src = src;
-      popup.style.display = "flex";
+      document.getElementById("zoomImage").src = src;
+      document.getElementById("zoomPopup").style.display = "flex";
     }
 
     function closeZoom() {
       document.getElementById("zoomPopup").style.display = "none";
     }
 
-    function nextSlide(id) {
+    function nextSlide(id, imgs) {
       const container = document.getElementById(id);
-      const images = JSON.parse(container.getAttribute("data-images"));
-      const currentSrc = container.querySelector("img").src.split('/').pop();
-      let idx = images.findIndex(i => i.endsWith(currentSrc));
-      idx = (idx + 1) % images.length;
-      container.innerHTML = `<img src="${images[idx]}" onclick="zoomImage('${images[idx]}')" />`;
+      const current = container.querySelector("img").src.split('/').pop();
+      let idx = imgs.findIndex(img => img.endsWith(current));
+      idx = (idx + 1) % imgs.length;
+      container.innerHTML = `<img src="${imgs[idx]}" onclick="zoomImage('${imgs[idx]}')" />`;
     }
 
-    function prevSlide(id) {
+    function prevSlide(id, imgs) {
       const container = document.getElementById(id);
-      const images = JSON.parse(container.getAttribute("data-images"));
-      const currentSrc = container.querySelector("img").src.split('/').pop();
-      let idx = images.findIndex(i => i.endsWith(currentSrc));
-      idx = (idx - 1 + images.length) % images.length;
-      container.innerHTML = `<img src="${images[idx]}" onclick="zoomImage('${images[idx]}')" />`;
+      const current = container.querySelector("img").src.split('/').pop();
+      let idx = imgs.findIndex(img => img.endsWith(current));
+      idx = (idx - 1 + imgs.length) % imgs.length;
+      container.innerHTML = `<img src="${imgs[idx]}" onclick="zoomImage('${imgs[idx]}')" />`;
     }
 
     function addToCart(id) {
       const product = products.find(p => p.id === id);
-      if (!product) return;
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart.push({
         name: product.name,
@@ -289,20 +189,10 @@
         img: product.img
       });
       localStorage.setItem("cart", JSON.stringify(cart));
-      alert(`เพิ่ม "${product.name}" ลงตะกร้าเรียบร้อยแล้ว`);
+      alert(`เพิ่ม "${product.name}" ลงตะกร้าแล้ว`);
     }
 
-    function closeHero() {
-      document.getElementById("heroMessage").style.display = "none";
-      localStorage.setItem("heroClosed", "true");
-    }
-
-    window.onload = () => {
-      if (localStorage.getItem("heroClosed") === "true") {
-        document.getElementById("heroMessage").style.display = "none";
-      }
-      renderProducts();
-    };
+    renderProducts();
   </script>
 </body>
 </html>
