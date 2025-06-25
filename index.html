@@ -7,23 +7,23 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
     html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-  background-image: url('T1.JPG');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #2c3e50;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background-image: url('T1.JPG'); /* ← เปลี่ยนชื่อภาพได้ */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #2c3e50;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
 
-.wrapper {
-  flex: 1;
-}
+    .wrapper {
+      flex: 1;
+    }
 
     header {
       background: #34495e;
@@ -74,6 +74,43 @@
     .contact-bar img {
       width: 24px;
       height: 24px;
+    }
+
+    .hero-message {
+      text-align: center;
+      margin-top: 40px;
+      color: #ffffff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .hero-message h2 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .hero-message p {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
     }
 
     .products {
@@ -170,6 +207,13 @@
       </a>
     </div>
 
+    <!-- ✅ กล่องข้อความต้อนรับที่ปิดได้ -->
+    <div class="hero-message" id="heroMessage">
+      <button class="close-btn" onclick="closeHero()">×</button>
+      <h2>ยินดีต้อนรับสู่ TRENDTRINITY</h2>
+      <p>เสื้อผ้าแฟชั่นสำหรับคุณ อัปเดตทุกสัปดาห์ ราคาคุ้มค่า พร้อมส่ง!</p>
+    </div>
+
     <section class="products" id="products-list">
       <!-- สินค้าจะแสดงที่นี่ -->
     </section>
@@ -180,6 +224,19 @@
   </footer>
 
   <script>
+    // ✅ ซ่อน hero message ถ้าเคยปิดแล้ว
+    window.onload = () => {
+      if (localStorage.getItem("heroClosed") === "true") {
+        document.getElementById("heroMessage").style.display = "none";
+      }
+    };
+
+    function closeHero() {
+      document.getElementById("heroMessage").style.display = "none";
+      localStorage.setItem("heroClosed", "true");
+    }
+
+    // ✅ แสดงสินค้า
     const products = [
       { id: 1, name: "TrendtrinityX", price: 599, img: "X1.jpg" },
       { id: 2, name: "TrendtrinityOversize", price: 399, img: "Black.png.jpg" },
