@@ -6,16 +6,22 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-    body {
-      font-family: 'Poppins', sans-serif;
+    html, body {
+      height: 100%;
       margin: 0;
       padding: 0;
-      background-image: url('T1.JPG'); /* ← เปลี่ยนชื่อไฟล์ภาพพื้นหลังที่นี่ */
+      font-family: 'Poppins', sans-serif;
+      background-image: url('T1.JPG'); /* ← เปลี่ยนชื่อไฟล์ภาพพื้นหลังได้ */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       color: #2c3e50;
-      min-height: 100vh;
+    }
+
+    .wrapper {
+      min-height: calc(100vh - 70px); /* ลบความสูง footer */
+      display: flex;
+      flex-direction: column;
     }
 
     header {
@@ -25,13 +31,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-
-    header h1 {
-      margin: 0;
-      font-weight: 600;
-      font-size: 24px;
-      letter-spacing: 1.2px;
     }
 
     nav {
@@ -50,6 +49,30 @@
 
     nav a:hover {
       background: #1abc9c;
+    }
+
+    .contact-bar {
+      background: #2c3e50;
+      padding: 10px 30px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .contact-bar a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .contact-bar img {
+      width: 24px;
+      height: 24px;
     }
 
     .products {
@@ -120,100 +143,75 @@
       color: white;
       padding: 20px 30px;
       text-align: center;
-      margin-top: 50px;
-    }
-
-    .contact-bar {
-      background: #2c3e50;
-      padding: 10px 30px;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      align-items: center;
-    }
-
-    .contact-bar a {
-      color: white;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .contact-bar img {
-      width: 24px;
-      height: 24px;
     }
   </style>
 </head>
 <body>
+  <div class="wrapper">
+    <header>
+      <img src="trendtrinity-logo.png" alt="TRENDTRINITY Logo" />
+      <nav>
+        <a href="index.html">หน้าร้าน</a>
+        <a href="cart.html">ตะกร้า</a>
+        <a href="admin.html">หลังบ้าน</a>
+      </nav>
+    </header>
 
-<header>
-  <img src="trendtrinity-logo.png" alt="TRENDTRINITY Logo" />
-  <nav>
-    <a href="index.html">หน้าร้าน</a>
-    <a href="cart.html">ตะกร้า</a>
-    <a href="admin.html">หลังบ้าน</a>
-  </nav>
-</header>
+    <div class="contact-bar">
+      <a href="https://www.facebook.com/-" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook Logo" /> Facebook
+      </a>
+      <a href="https://www.instagram.com/trendtrinityv?igsh=NGtoOTFqbjh3aDlw" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Logo" /> Instagram
+      </a>
+      <a href="https://www.tiktok.com/@" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok Logo" /> TikTok
+      </a>
+    </div>
 
-<div class="contact-bar">
-  <a href="https://www.facebook.com/-" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook Logo" /> Facebook
-  </a>
-  <a href="https://www.instagram.com/trendtrinityv?igsh=NGtoOTFqbjh3aDlw" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Logo" /> Instagram
-  </a>
-  <a href="https://www.tiktok.com/@" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok Logo" /> TikTok
-  </a>
-</div>
+    <section class="products" id="products-list">
+      <!-- สินค้าจะแสดงที่นี่ -->
+    </section>
+  </div>
 
-<section class="products" id="products-list">
-  <!-- สินค้าจะแสดงที่นี่ -->
-</section>
+  <footer>
+    &copy; 2025 TRENDTRINITY
+  </footer>
 
-<footer>
-  &copy; 2025 TRENDTRINITY
-</footer>
+  <script>
+    const products = [
+      { id: 1, name: "TrendtrinityX", price: 599, img: "X1.jpg" },
+      { id: 2, name: "TrendtrinityOversize", price: 399, img: "Black.png.jpg" },
+      { id: 3, name: "Coming Soon", price: 0, img: "C1.jpg" },
+      { id: 4, name: "Coming Soon", price: 0, img: "C1.jpg" }
+    ];
 
-<script>
-  const products = [
-    { id: 1, name: "TrendtrinityX", price: 599, img: "X1.jpg" },
-    { id: 2, name: "TrendtrinityOversize", price: 399, img: "Black.png.jpg" },
-    { id: 3, name: "Coming Soon", price: 0, img: "C1.jpg" },
-    { id: 4, name: "Coming Soon", price: 0, img: "C1.jpg" }
-  ];
+    function renderProducts() {
+      const container = document.getElementById("products-list");
+      container.innerHTML = "";
+      products.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" />
+          <h3>${p.name}</h3>
+          <p class="price">฿${p.price}</p>
+          <button onclick="addToCart(${p.id})">เพิ่มลงตะกร้า</button>
+        `;
+        container.appendChild(div);
+      });
+    }
 
-  function renderProducts() {
-    const container = document.getElementById("products-list");
-    container.innerHTML = "";
-    products.forEach(p => {
-      const div = document.createElement("div");
-      div.className = "product";
-      div.innerHTML = `
-        <img src="${p.img}" alt="${p.name}" />
-        <h3>${p.name}</h3>
-        <p class="price">฿${p.price}</p>
-        <button onclick="addToCart(${p.id})">เพิ่มลงตะกร้า</button>
-      `;
-      container.appendChild(div);
-    });
-  }
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`เพิ่ม "${product.name}" ลงตะกร้าเรียบร้อยแล้ว`);
+    }
 
-  function addToCart(id) {
-    const product = products.find(p => p.id === id);
-    if (!product) return;
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(product);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`เพิ่ม "${product.name}" ลงตะกร้าเรียบร้อยแล้ว`);
-  }
-
-  renderProducts();
-</script>
-
+    renderProducts();
+  </script>
 </body>
 </html>
