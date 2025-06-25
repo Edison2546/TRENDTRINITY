@@ -4,17 +4,36 @@
   <meta charset="UTF-8" />
   <title>หลังบ้าน - TRENDTRINITY</title>
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+    html, body {
+      margin: 0;
+      padding: 0;
       font-family: 'Poppins', sans-serif;
-      background: #f9f9f9;
-      max-width: 800px;
-      margin: auto;
-      padding: 30px;
+      background-image: url('T1.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
     h1 {
       text-align: center;
       color: #2c3e50;
+      margin-bottom: 30px;
     }
+
     .order {
       background: #fff;
       margin-bottom: 20px;
@@ -22,35 +41,52 @@
       border-radius: 10px;
       box-shadow: 0 1px 4px rgba(0,0,0,0.1);
     }
+
     .order h3 {
       margin: 0 0 10px;
     }
+
     .order p {
       margin: 5px 0;
     }
-    .delete-btn {
-      background: crimson;
+
+    .delete-btn, .print-btn, .status-btn {
+      margin-right: 8px;
+      background: #2980b9;
       color: white;
       border: none;
-      padding: 8px 15px;
+      padding: 6px 12px;
       border-radius: 6px;
       cursor: pointer;
-      margin-top: 10px;
     }
+
     .delete-btn:hover {
-      background: #a70000;
+      background: crimson;
+    }
+
+    .status {
+      margin-top: 6px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    input[type="file"] {
+      margin-top: 10px;
     }
   </style>
 </head>
 <body onload="loadOrders()">
-  <h1>รายการคำสั่งซื้อ (หลังบ้าน)</h1>
-  <div id="orders"></div>
+  <div class="container">
+    <h1>รายการคำสั่งซื้อ (หลังบ้าน)</h1>
+    <div id="orders"></div>
+  </div>
 
   <script>
     function loadOrders() {
       const orders = JSON.parse(localStorage.getItem("orderHistory")) || [];
       const container = document.getElementById("orders");
       container.innerHTML = "";
+
       if (orders.length === 0) {
         container.innerHTML = "<p style='text-align:center;'>ไม่มีคำสั่งซื้อ</p>";
         return;
@@ -59,6 +95,8 @@
       orders.forEach((order, index) => {
         const div = document.createElement("div");
         div.className = "order";
+        div.id = "order-" + index;
+
         div.innerHTML = `
           <h3>ออเดอร์ #${index + 1}</h3>
           <p>👤 ชื่อ: ${order.name}</p>
@@ -66,7 +104,12 @@
           <p>🏠 ที่อยู่: ${order.address}</p>
           <p>🧾 สินค้า:<br>${order.items.map(i => "- " + i.name + " (฿" + i.price + ")").join("<br>")}</p>
           <p>💰 รวม: ฿${order.total}</p>
-          <button class="delete-btn" onclick="deleteOrder(${index})">ลบออเดอร์</button>
+          <p class="status">สถานะ: <span id="status-${index}">รอจัดส่ง</span></p>
+          <input type="file" onchange="uploadSlip(event, ${index})" />
+          <br><br>
+          <button class="print-btn" onclick="printOrder(${index})">🖨 พิมพ์ใบออเดอร์</button>
+          <button class="status-btn" onclick="toggleStatus(${index})">📦 เปลี่ยนสถานะ</button>
+          <button class="delete-btn" onclick="deleteOrder(${index})">🗑 ลบออเดอร์</button>
         `;
         container.appendChild(div);
       });
@@ -78,6 +121,29 @@
         orders.splice(index, 1);
         localStorage.setItem("orderHistory", JSON.stringify(orders));
         loadOrders();
+      }
+    }
+
+    function toggleStatus(index) {
+      const statusSpan = document.getElementById("status-" + index);
+      statusSpan.textContent = statusSpan.textContent === "รอจัดส่ง" ? "จัดส่งแล้ว" : "รอจัดส่ง";
+    }
+
+    function printOrder(index) {
+      const orderDiv = document.getElementById("order-" + index).innerHTML;
+      const w = window.open("", "", "width=800,height=600");
+      w.document.write("<html><head><title>ใบออเดอร์</title></head><body style='font-family:Poppins,sans-serif;padding:20px;'>");
+      w.document.write(orderDiv);
+      w.document.write("</body></html>");
+      w.document.close();
+      w.print();
+    }
+
+    function uploadSlip(event, index) {
+      const file = event.target.files[0];
+      if (file) {
+        alert("อัปโหลดสลิปสำเร็จ: " + file.name);
+        // กรณีใช้จริงควรอัปโหลดไปยัง server
       }
     }
   </script>
