@@ -70,13 +70,31 @@
     }
 
     .hero-message {
+      position: relative;
       text-align: center;
       margin: 30px auto;
       color: #fff;
       background: rgba(0,0,0,0.5);
-      padding: 20px;
+      padding: 20px 40px 20px 20px;
       border-radius: 12px;
       max-width: 800px;
+    }
+
+    .hero-message .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+      line-height: 1;
+    }
+
+    .hero-message .close-btn:hover {
+      color: #f00;
     }
 
     .products {
@@ -184,7 +202,8 @@
     </a>
   </div>
 
-  <div class="hero-message">
+  <div class="hero-message" id="heroMessage">
+    <button class="close-btn" onclick="document.getElementById('heroMessage').style.display='none'">&times;</button>
     <h2>ยินดีต้อนรับสู่ TRENDTRINITY</h2>
     <p>เสื้อผ้าวัยรุ่นสไตล์ใหม่ไม่เหมือนใคร อัปเดตโปรโมชั่นทุกสัปดาห์ สั่งตอนนี้!</p>
   </div>
