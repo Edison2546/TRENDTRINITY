@@ -17,6 +17,7 @@
       display: flex;
       flex-direction: column;
     }
+
     header {
       background: #34495e;
       color: white;
@@ -25,10 +26,12 @@
       align-items: center;
       justify-content: space-between;
     }
+
     nav {
       display: flex;
       gap: 20px;
     }
+
     nav a {
       color: white;
       text-decoration: none;
@@ -37,9 +40,11 @@
       border-radius: 6px;
       transition: background 0.3s;
     }
+
     nav a:hover {
       background: #1abc9c;
     }
+
     .contact-bar {
       background: #2c3e50;
       padding: 10px 30px;
@@ -48,6 +53,7 @@
       gap: 30px;
       align-items: center;
     }
+
     .contact-bar a {
       color: white;
       text-decoration: none;
@@ -57,10 +63,12 @@
       font-weight: 600;
       font-size: 15px;
     }
+
     .contact-bar img {
       width: 24px;
       height: 24px;
     }
+
     .hero-message {
       text-align: center;
       margin: 30px auto;
@@ -70,55 +78,60 @@
       border-radius: 12px;
       max-width: 800px;
     }
+
     .products {
-      display: flex;
-      overflow-x: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
       padding: 30px 20px;
-      scroll-snap-type: x mandatory;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
     }
-    .products::-webkit-scrollbar {
-      display: none;
-    }
+
     .product {
       background: white;
       border-radius: 12px;
-      padding: 15px;
-      min-width: 220px;
-      scroll-snap-align: start;
+      padding: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       text-align: center;
-      flex-shrink: 0;
       position: relative;
     }
+
     .product img {
-      width: 180px;
-      height: 180px;
+      width: 240px;
+      height: 240px;
       object-fit: cover;
       border-radius: 10px;
       cursor: pointer;
     }
+
     .product h3 {
-      margin: 12px 0 6px;
-      font-size: 18px;
+      margin: 16px 0 8px;
+      font-size: 20px;
     }
+
     .product p.price {
       font-weight: 700;
       color: #27ae60;
       margin: 0 0 12px;
+      font-size: 17px;
     }
+
     .product button {
       background: #2980b9;
       color: white;
       border: none;
-      padding: 8px 16px;
+      padding: 10px 20px;
       border-radius: 6px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 15px;
     }
+
     .product button:hover {
       background: #1f6391;
     }
+
     .zoom-popup {
       display: none;
       position: fixed;
@@ -129,14 +142,13 @@
       align-items: center;
       z-index: 999;
     }
+
     .zoom-popup img {
       max-width: 90%;
       max-height: 90%;
       border-radius: 12px;
     }
-    .zoom-popup.close-area {
-      cursor: pointer;
-    }
+
     footer {
       background: #34495e;
       color: white;
@@ -170,14 +182,14 @@
   </div>
 
   <section class="products" id="products-list">
-    <!-- สินค้าจะถูกเพิ่มจาก JavaScript -->
+    <!-- รายการสินค้าแสดงตรงนี้ -->
   </section>
 
   <footer>
     &copy; 2025 TRENDTRINITY
   </footer>
 
-  <!-- ป๊อปอัพซูมภาพ -->
+  <!-- ป๊อปอัพซูม -->
   <div class="zoom-popup" id="zoomPopup" onclick="closeZoom()">
     <img id="zoomImage" src="" alt="Zoomed" />
   </div>
