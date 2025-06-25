@@ -70,31 +70,13 @@
     }
 
     .hero-message {
-      position: relative;
       text-align: center;
       margin: 30px auto;
       color: #fff;
       background: rgba(0,0,0,0.5);
-      padding: 20px 40px 20px 20px;
+      padding: 20px;
       border-radius: 12px;
       max-width: 800px;
-    }
-
-    .hero-message .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: transparent;
-      border: none;
-      font-size: 24px;
-      color: #fff;
-      cursor: pointer;
-      font-weight: bold;
-      line-height: 1;
-    }
-
-    .hero-message .close-btn:hover {
-      color: #f00;
     }
 
     .products {
@@ -150,6 +132,7 @@
       background: #1f6391;
     }
 
+    /* Zoom popup */
     .zoom-popup {
       display: none;
       position: fixed;
@@ -165,6 +148,65 @@
       max-width: 90%;
       max-height: 90%;
       border-radius: 12px;
+    }
+
+    /* สไลด์รูปภาพ */
+    .slider-container {
+      position: relative;
+      max-width: 800px;
+      margin: 40px auto 20px auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      background: white;
+    }
+
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 300px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: 40px;
+      height: 40px;
+      margin-top: -20px;
+      color: white;
+      font-weight: bold;
+      font-size: 30px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      line-height: 40px;
+      text-align: center;
+      user-select: none;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+
+    .prev:hover, .next:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
     }
 
     footer {
@@ -202,8 +244,7 @@
     </a>
   </div>
 
-  <div class="hero-message" id="heroMessage">
-    <button class="close-btn" onclick="document.getElementById('heroMessage').style.display='none'">&times;</button>
+  <div class="hero-message">
     <h2>ยินดีต้อนรับสู่ TRENDTRINITY</h2>
     <p>เสื้อผ้าวัยรุ่นสไตล์ใหม่ไม่เหมือนใคร อัปเดตโปรโมชั่นทุกสัปดาห์ สั่งตอนนี้!</p>
   </div>
@@ -211,6 +252,17 @@
   <section class="products" id="products-list">
     <!-- รายการสินค้าแสดงตรงนี้ -->
   </section>
+
+  <!-- สไลด์รูปภาพ อยู่ก่อน footer -->
+  <div class="slider-container">
+    <div class="slider">
+      <img src="slide1.jpg" alt="Slide 1" class="slide active" />
+      <img src="slide2.jpg" alt="Slide 2" class="slide" />
+      <img src="slide3.jpg" alt="Slide 3" class="slide" />
+    </div>
+    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+    <button class="next" onclick="changeSlide(1)">&#10095;</button>
+  </div>
 
   <footer>
     &copy; 2025 TRENDTRINITY
@@ -264,6 +316,27 @@
     }
 
     renderProducts();
+
+    // สไลด์รูปภาพ
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".slide");
+
+    function showSlide(index) {
+      if (index >= slides.length) currentSlide = 0;
+      else if (index < 0) currentSlide = slides.length - 1;
+      else currentSlide = index;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === currentSlide);
+      });
+    }
+
+    function changeSlide(n) {
+      showSlide(currentSlide + n);
+    }
+
+    // เริ่มสไลด์แรก
+    showSlide(currentSlide);
   </script>
 
 </body>
