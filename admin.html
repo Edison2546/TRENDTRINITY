@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>หลังบ้าน - TRENDTRINITY</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .order {
+      background: #fff;
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+    .order h3 {
+      margin: 0 0 10px;
+    }
+    .order p {
+      margin: 5px 0;
+    }
+    .delete-btn {
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .delete-btn:hover {
+      background: #a70000;
+    }
+  </style>
+</head>
+<body onload="loadOrders()">
+  <h1>รายการคำสั่งซื้อ (หลังบ้าน)</h1>
+  <div id="orders"></div>
+
+  <script>
+    function loadOrders() {
+      const orders = JSON.parse(localStorage.getItem("orderHistory")) || [];
+      const container = document.getElementById("orders");
+      container.innerHTML = "";
+      if (orders.length === 0) {
+        container.innerHTML = "<p style='text-align:center;'>ไม่มีคำสั่งซื้อ</p>";
+        return;
+      }
+
+      orders.forEach((order, index) => {
+        const div = document.createElement("div");
+        div.className = "order";
+        div.innerHTML = `
+          <h3>ออเดอร์ #${index + 1}</h3>
+          <p>👤 ชื่อ: ${order.name}</p>
+          <p>📞 เบอร์โทร: ${order.phone}</p>
+          <p>🏠 ที่อยู่: ${order.address}</p>
+          <p>🧾 สินค้า:<br>${order.items.map(i => "- " + i.name + " (฿" + i.price + ")").join("<br>")}</p>
+          <p>💰 รวม: ฿${order.total}</p>
+          <button class="delete-btn" onclick="deleteOrder(${index})">ลบออเดอร์</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function deleteOrder(index) {
+      const orders = JSON.parse(localStorage.getItem("orderHistory")) || [];
+      if (confirm("ลบออเดอร์นี้จริงหรือไม่?")) {
+        orders.splice(index, 1);
+        localStorage.setItem("orderHistory", JSON.stringify(orders));
+        loadOrders();
+      }
+    }
+  </script>
+</body>
+</html>
