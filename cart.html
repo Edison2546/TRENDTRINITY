@@ -29,7 +29,7 @@
       margin-bottom: 15px;
       padding: 15px;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     .item-wrapper {
@@ -92,6 +92,7 @@
       padding: 6px 10px;
       border-radius: 6px;
       cursor: pointer;
+      margin-left: 8px;
     }
 
     #total-price {
@@ -138,6 +139,7 @@
       color: white;
       cursor: pointer;
       font-weight: bold;
+      user-select: none;
     }
   </style>
 </head>
@@ -148,8 +150,8 @@
   <a href="checkout.html" class="button-link">ดำเนินการสั่งซื้อ</a>
   <br><a href="index.html">← กลับหน้าร้าน</a>
 
-  <!-- ป๊อปอัพซูม -->
-  <div id="zoomPopup" onclick="closeZoom()">
+  <!-- ป๊อปอัพซูมรูป -->
+  <div id="zoomPopup" onclick="closeZoom(event)">
     <span class="close-zoom">×</span>
     <img id="zoomImage" src="" alt="Zoomed Image" />
   </div>
@@ -172,19 +174,16 @@
         total += item.price;
         const li = document.createElement("li");
 
+        // รูปภาพเป็น array หรือ string เดี่ยว
         const images = Array.isArray(item.img) ? item.img : [item.img];
         const sliderId = `slider-${index}`;
 
-        // เก็บ images ลง attribute เพื่อ prevSlide ใช้งาน
-        const imagesAttr = JSON.stringify(images).replace(/"/g, '&quot;');
-
         let sliderHTML = `
-          <button onclick="prevSlide('${sliderId}')" aria-label="ก่อนหน้า">‹</button>
-          <div class="slider-container" id="${sliderId}" data-images="${imagesAttr}">
+          <button onclick="prevSlide('${sliderId}', ${JSON.stringify(images).replace(/"/g, '&quot;')})">‹</button>
+          <div class="slider-container" id="${sliderId}">
             <img src="${images[0]}" onclick="zoomImage('${images[0]}')" />
           </div>
-          <button onclick="nextSlide('${sliderId}')" aria-label="ถัดไป">›</button>
-          <button class="zoom-btn" onclick="zoomImage(currentSlideSrc('${sliderId}'))">ซูม</button>
+          <button onclick="nextSlide('${sliderId}', ${JSON.stringify(images).replace(/"/g, '&quot;')})">›</button>
         `;
 
         li.innerHTML = `
@@ -195,8 +194,10 @@
               <div class="item-price">฿${item.price}</div>
             </div>
             <button class="remove-btn" onclick="removeItem(${index})">ลบ</button>
+            <button class="zoom-btn" onclick="zoomImage('${images[0]}')">ซูม</button>
           </div>
         `;
+
         list.appendChild(li);
       });
 
@@ -204,4 +205,43 @@
     }
 
     function removeItem(index) {
-     
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function zoomImage(src) {
+      const popup = document.getElementById("zoomPopup");
+      const img = document.getElementById("zoomImage");
+      img.src = src;
+      popup.style.display = "flex";
+    }
+
+    function closeZoom(event) {
+      // กดปิดเฉพาะถ้ากดตรง background หรือกากบาท
+      if(event.target.id === 'zoomPopup' || event.target.classList.contains('close-zoom')){
+        document.getElementById("zoomPopup").style.display = "none";
+      }
+    }
+
+    function nextSlide(containerId, images) {
+      const container = document.getElementById(containerId);
+      const currentSrc = container.querySelector("img").src.split('/').pop();
+      let idx = images.findIndex(i => i.endsWith(currentSrc));
+      idx = (idx + 1) % images.length;
+      container.innerHTML = `<img src="${images[idx]}" onclick="zoomImage('${images[idx]}')" />`;
+    }
+
+    function prevSlide(containerId, images) {
+      const container = document.getElementById(containerId);
+      const currentSrc = container.querySelector("img").src.split('/').pop();
+      let idx = images.findIndex(i => i.endsWith(currentSrc));
+      idx = (idx - 1 + images.length) % images.length;
+      container.innerHTML = `<img src="${images[idx]}" onclick="zoomImage('${images[idx]}')" />`;
+    }
+
+    window.onload = renderCart;
+  </script>
+</body>
+</html>
