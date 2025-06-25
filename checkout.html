@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>เช็คเอาท์ - TRENDTRINITY</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 2em; background: #fefefe; color: #333; }
+    form { max-width: 400px; margin: auto; background: white; padding: 1.5em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, textarea, button { width: 100%; padding: 0.8em; margin-top: 1em; border: 1px solid #ccc; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">เช็คเอาท์</h2>
+  <form onsubmit="submitOrder(event)">
+    <input type="text" id="name" placeholder="ชื่อผู้สั่งซื้อ" required>
+    <textarea id="address" placeholder="ที่อยู่จัดส่ง" required></textarea>
+    <button type="submit">ยืนยันคำสั่งซื้อ</button>
+  </form>
+  <script>
+    function submitOrder(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const address = document.getElementById("address").value;
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      let message = `🛍️ มีออเดอร์ใหม่จาก TRENDTRINITY\n👤 ชื่อ: ${name}\n📍 ที่อยู่: ${address}\n📦 สินค้า:\n`;
+      let total = 0;
+      cart.forEach(i => {
+        message += `- ${i.name} - ${i.price}฿\n`;
+        total += i.price;
+      });
+      message += `💰 ยอดรวม: ${total} บาท`;
+
+      fetch("https://notify-api.line.me/api/notify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Authorization": "Bearer YOUR_TOKEN_HERE"
+        },
+        body: `message=${encodeURIComponent(message)}`
+      }).then(() => {
+        alert("ส่งคำสั่งซื้อเรียบร้อยแล้ว!");
+        localStorage.removeItem("cart");
+        window.location.href = "index.html";
+      }).catch(() => {
+        alert("ส่งคำสั่งซื้อไม่สำเร็จ กรุณาลองใหม่");
+      });
+    }
+  </script>
+</body>
+</html>
