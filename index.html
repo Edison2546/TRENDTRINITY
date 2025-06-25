@@ -5,19 +5,18 @@
   <title>TRENDTRINITY - ร้านขายเสื้อ</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-    body {
-      font-family: 'Poppins', sans-serif;
+    html, body {
       margin: 0;
       padding: 0;
-      background-image: url('T1.JPG'); /* ← เปลี่ยนชื่อไฟล์ภาพพื้นหลังที่นี่ */
+      font-family: 'Poppins', sans-serif;
+      background-image: url('T1.JPG');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      color: #2c3e50;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-
     header {
       background: #34495e;
       color: white;
@@ -26,16 +25,10 @@
       align-items: center;
       justify-content: space-between;
     }
-
-    header img {
-      height: 40px;
-    }
-
     nav {
       display: flex;
       gap: 20px;
     }
-
     nav a {
       color: white;
       text-decoration: none;
@@ -44,11 +37,9 @@
       border-radius: 6px;
       transition: background 0.3s;
     }
-
     nav a:hover {
       background: #1abc9c;
     }
-
     .contact-bar {
       background: #2c3e50;
       padding: 10px 30px;
@@ -57,7 +48,6 @@
       gap: 30px;
       align-items: center;
     }
-
     .contact-bar a {
       color: white;
       text-decoration: none;
@@ -67,92 +57,86 @@
       font-weight: 600;
       font-size: 15px;
     }
-
     .contact-bar img {
       width: 24px;
       height: 24px;
     }
-
     .hero-message {
       text-align: center;
-      margin: 30px auto 40px;
+      margin: 30px auto;
       color: #fff;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
-      padding: 20px 25px;
       background: rgba(0,0,0,0.5);
-      max-width: 800px;
+      padding: 20px;
       border-radius: 12px;
-      position: relative;
+      max-width: 800px;
     }
-
-    .close-btn {
-      position: absolute;
-      top: 10px; right: 14px;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-    }
-
     .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap: 25px;
-      max-width: 1000px;
-      margin: 0 auto 50px;
-      padding: 0 20px;
+      display: flex;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 30px 20px;
+      scroll-snap-type: x mandatory;
     }
-
+    .products::-webkit-scrollbar {
+      display: none;
+    }
     .product {
       background: white;
       border-radius: 12px;
       padding: 15px;
-      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      min-width: 220px;
+      scroll-snap-align: start;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       text-align: center;
-      transition: transform 0.2s ease;
+      flex-shrink: 0;
       position: relative;
     }
-
-    .product:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgb(0 0 0 / 0.15);
-    }
-
-    .slider-container {
+    .product img {
       width: 180px;
       height: 180px;
-      overflow: hidden;
+      object-fit: cover;
       border-radius: 10px;
       cursor: pointer;
-      position: relative;
     }
-
-    .slider-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      user-select: none;
-    }
-
     .product h3 {
-      margin: 12px 0 8px;
-      font-weight: 600;
+      margin: 12px 0 6px;
       font-size: 18px;
     }
-
     .product p.price {
       font-weight: 700;
       color: #27ae60;
       margin: 0 0 12px;
-      font-size: 16px;
     }
-
+    .product button {
+      background: #2980b9;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .product button:hover {
+      background: #1f6391;
+    }
+    .zoom-popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .zoom-popup img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+    .zoom-popup.close-area {
+      cursor: pointer;
+    }
     footer {
       background: #34495e;
       color: white;
@@ -160,181 +144,88 @@
       text-align: center;
       margin-top: auto;
     }
-
-    /* ป๊อปอัพซูม */
-    #zoomPopup {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.85);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    #zoomPopup img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
-    }
-
-    #zoomPopup .close-zoom {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 40px;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      user-select: none;
-    }
   </style>
 </head>
 <body>
 
-<header>
-  <img src="trendtrinity-logo.png" alt="TRENDTRINITY Logo" />
-  <nav>
-    <a href="index.html">หน้าร้าน</a>
-    <a href="cart.html">ตะกร้า</a>
-    <a href="admin.html">หลังบ้าน</a>
-  </nav>
-</header>
+  <header>
+    <img src="trendtrinity-logo.png" alt="TRENDTRINITY Logo" height="40" />
+    <nav>
+      <a href="index.html">หน้าร้าน</a>
+      <a href="cart.html">ตะกร้า</a>
+      <a href="admin.html">หลังบ้าน</a>
+    </nav>
+  </header>
 
-<div class="contact-bar">
-  <a href="https://www.facebook.com/-" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook Logo" /> Facebook
-  </a>
-  <a href="https://www.instagram.com/trendtrinityv?igsh=NGtoOTFqbjh3aDlw" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Logo" /> Instagram
-  </a>
-  <a href="https://www.tiktok.com/@" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok Logo" /> TikTok
-  </a>
-  <a href="https://line.me/R/ti/p/~Trendtrinity" target="_blank">
-    <img src="Line.png" alt="LINE Logo" /> LINE
-  </a>
-</div>
+  <div class="contact-bar">
+    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt=""> Facebook</a>
+    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt=""> Instagram</a>
+    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt=""> TikTok</a>
+    <a href="#"><img src="Line.png" alt=""> LINE</a>
+  </div>
 
-<div class="hero-message" id="heroMessage">
-  <button class="close-btn" onclick="closeHero()">×</button>
-  <h2>ยินดีต้อนรับสู่ TRENDTRINITY</h2>
-  <p>เสื้อผ้าวัยรุ่นสไตล์ใหม่ไม่เหมือนใคร อัปเดตโปรโมชั่นทุกสัปดาห์ สั่งตอนนี้!</p>
-</div>
+  <div class="hero-message">
+    <h2>ยินดีต้อนรับสู่ TRENDTRINITY</h2>
+    <p>เสื้อผ้าวัยรุ่นสไตล์ใหม่ไม่เหมือนใคร อัปเดตโปรโมชั่นทุกสัปดาห์ สั่งตอนนี้!</p>
+  </div>
 
-<section class="products" id="products-list">
-  <!-- สินค้าจะแสดงที่นี่ -->
-</section>
+  <section class="products" id="products-list">
+    <!-- สินค้าจะถูกเพิ่มจาก JavaScript -->
+  </section>
 
-<footer>
-  &copy; 2025 TRENDTRINITY
-</footer>
+  <footer>
+    &copy; 2025 TRENDTRINITY
+  </footer>
 
-<!-- ป๊อปอัพซูม -->
-<div id="zoomPopup" onclick="closeZoom()">
-  <span class="close-zoom" onclick="closeZoom()">×</span>
-  <img id="zoomImage" src="" alt="Zoomed Image" />
-</div>
+  <!-- ป๊อปอัพซูมภาพ -->
+  <div class="zoom-popup" id="zoomPopup" onclick="closeZoom()">
+    <img id="zoomImage" src="" alt="Zoomed" />
+  </div>
 
-<script>
-  const products = [
-    {
-      id: 1,
-      name: "TrendtrinityX",
-      price: 599,
-      img: ["X1.jpg", "jacket-product.jpg", "X1-3.jpg"]
-    },
-    {
-      id: 2,
-      name: "TrendtrinityOversize",
-      price: 399,
-      img: ["Black.png.jpg", "Black2.JPG"]
-    },
-    {
-      id: 3,
-      name: "Coming Soon",
-      price: 0,
-      img: ["C1.jpg"]
-    },
-    {
-      id: 4,
-      name: "Coming Soon",
-      price: 0,
-      img: ["C1.jpg"]
-    }
-  ];
+  <script>
+    const products = [
+      { id: 1, name: "TrendtrinityX", price: 599, img: "X1.jpg" },
+      { id: 2, name: "TrendtrinityOversize", price: 399, img: "Black.png.jpg" },
+      { id: 3, name: "Coming Soon", price: 0, img: "C1.jpg" },
+      { id: 4, name: "Coming Soon", price: 0, img: "C1.jpg" }
+    ];
 
-  // ซ่อน hero message ถ้าเคยปิดแล้ว
-  window.onload = () => {
-    if (localStorage.getItem("heroClosed") === "true") {
-      document.getElementById("heroMessage").style.display = "none";
-    }
-    renderProducts();
-  };
-
-  function closeHero() {
-    document.getElementById("heroMessage").style.display = "none";
-    localStorage.setItem("heroClosed", "true");
-  }
-
-  function renderProducts() {
-    const container = document.getElementById("products-list");
-    container.innerHTML = "";
-    products.forEach((p, index) => {
-      const div = document.createElement("div");
-      div.className = "product";
-
-      // slider container for images
-      div.innerHTML = `
-        <div class="slider-container" id="slider-${index}" data-index="0">
-          <img src="${p.img[0]}" alt="${p.name}" />
-        </div>
-        <h3>${p.name}</h3>
-        <p class="price">฿${p.price}</p>
-      `;
-
-      container.appendChild(div);
-
-      // เริ่มสไลด์เลื่อนภาพอัตโนมัติทุก 3 วินาที
-      setInterval(() => {
-        nextSlide(index, p.img);
-      }, 3000);
-    });
-
-    // เพิ่ม event listener สำหรับซูมภาพเมื่อคลิก
-    setTimeout(() => {
-      document.querySelectorAll(".slider-container img").forEach(img => {
-        img.addEventListener("click", e => {
-          zoomImage(e.target.src);
-        });
+    function renderProducts() {
+      const container = document.getElementById("products-list");
+      container.innerHTML = "";
+      products.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          <img src="${p.img}" alt="${p.name}" onclick="zoomImage('${p.img}')" />
+          <h3>${p.name}</h3>
+          <p class="price">฿${p.price}</p>
+          <button onclick="addToCart(${p.id})">เพิ่มลงตะกร้า</button>
+        `;
+        container.appendChild(div);
       });
-    }, 100);
-  }
+    }
 
-  function nextSlide(productIndex, images) {
-    const slider = document.getElementById(`slider-${productIndex}`);
-    if (!slider) return;
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(product);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`เพิ่ม "${product.name}" ลงตะกร้าเรียบร้อยแล้ว`);
+    }
 
-    let currentIndex = Number(slider.getAttribute("data-index")) || 0;
-    currentIndex = (currentIndex + 1) % images.length;
-    slider.setAttribute("data-index", currentIndex);
-    slider.querySelector("img").src = images[currentIndex];
-  }
+    function zoomImage(src) {
+      document.getElementById("zoomImage").src = src;
+      document.getElementById("zoomPopup").style.display = "flex";
+    }
 
-  // ฟังก์ชันซูมภาพ
-  function zoomImage(src) {
-    const popup = document.getElementById("zoomPopup");
-    const img = document.getElementById("zoomImage");
-    img.src = src;
-    popup.style.display = "flex";
-  }
+    function closeZoom() {
+      document.getElementById("zoomPopup").style.display = "none";
+    }
 
-  function closeZoom() {
-    document.getElementById("zoomPopup").style.display = "none";
-  }
-</script>
+    renderProducts();
+  </script>
 
 </body>
 </html>
