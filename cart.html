@@ -2,12 +2,8 @@
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
-  <title>TRENDTRINITY - ตะกร้าสินค้า</title>
+  <title>ตะกร้าสินค้า - TRENDTRINITY</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-    * {
-      box-sizing: border-box;
-    }
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
@@ -19,224 +15,106 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      color: #333;
-    }
-
-    header {
-      background: #34495e;
-      color: white;
-      padding: 15px 30px;
-      display: flex;
       align-items: center;
-      justify-content: space-between;
+      padding-top: 30px;
     }
-
-    header img {
-      height: 40px;
+    h1 {
+      color: #fff;
+      margin-bottom: 20px;
     }
-
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 8px 12px;
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-
-    nav a:hover {
-      background: #1abc9c;
-    }
-
-    .contact-bar {
-      background: #2c3e50;
-      padding: 10px 30px;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      align-items: center;
-    }
-
-    .contact-bar a {
-      color: white;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .contact-bar img {
-      width: 24px;
-      height: 24px;
-    }
-
-    .container {
-      background: rgba(255,255,255,0.95);
-      border-radius: 14px;
+    .cart-container {
+      background: #ffffffcc;
+      border-radius: 12px;
+      padding: 20px;
       width: 90%;
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 30px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
-
-    h2 {
-      text-align: center;
-      margin-top: 0;
-    }
-
-    .cart-list {
-      margin-top: 20px;
-    }
-
     .cart-item {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 12px;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
       border-bottom: 1px solid #ccc;
     }
-
-    .cart-item:last-child {
-      border-bottom: none;
+    .form-group {
+      margin-top: 15px;
     }
-
-    button {
-      cursor: pointer;
-      background: #e74c3c;
-      color: white;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 14px;
-      transition: background 0.3s ease;
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
     }
-
-    button:hover {
-      background: #c0392b;
-    }
-
-    #orderBtn {
-      margin-top: 20px;
-      width: 100%;
-      background: #2980b9;
-      padding: 14px;
-      font-size: 18px;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    #orderBtn:hover {
-      background: #1f6391;
-    }
-
-    #orderBtn:disabled {
-      background: #7f8c8d;
-      cursor: not-allowed;
-    }
-
-    .empty {
-      text-align: center;
-      font-style: italic;
-      color: #666;
-      margin-top: 30px;
-    }
-
-    form {
-      margin-top: 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
     input, textarea {
+      width: 100%;
       padding: 10px;
-      font-size: 16px;
       border-radius: 6px;
       border: 1px solid #ccc;
-      resize: vertical;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      font-family: 'Poppins', sans-serif;
     }
-
-    label {
-      font-weight: 600;
-    }
-
-    footer {
-      background: #34495e;
+    button {
+      background: #2980b9;
       color: white;
-      text-align: center;
-      padding: 15px 0;
-      margin-top: auto;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #1f6391;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <img src="trendtrinity-logo.png" alt="TRENDTRINITY Logo" />
-    <nav>
-      <a href="index.html">หน้าร้าน</a>
-      <a href="cart.html">ตะกร้า</a>
-      <a href="admin.html">หลังบ้าน</a>
-    </nav>
-  </header>
-
-  <div class="contact-bar">
-    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"> Facebook</a>
-    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram"> Instagram</a>
-    <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok"> TikTok</a>
-    <a href="#"><img src="Line.png" alt="LINE"> LINE</a>
-  </div>
-
-  <div class="container">
-    <h2>ตะกร้าสินค้าของคุณ</h2>
-    <div class="cart-list" id="cartList"></div>
+  <h1>ตะกร้าสินค้า</h1>
+  <div class="cart-container">
+    <div id="cartList"></div>
 
     <form id="orderForm">
-      <label for="customerName">ชื่อผู้สั่งซื้อ</label>
-      <input type="text" id="customerName" name="customerName" required placeholder="ชื่อของคุณ">
-
-      <label for="customerAddress">ที่อยู่สำหรับจัดส่ง</label>
-      <textarea id="customerAddress" name="customerAddress" required rows="3" placeholder="ระบุที่อยู่สำหรับจัดส่ง"></textarea>
-
-      <button type="submit" id="orderBtn">สั่งซื้อสินค้า</button>
+      <div class="form-group">
+        <label for="customerName">ชื่อผู้สั่งซื้อ</label>
+        <input type="text" id="customerName" name="customerName" required />
+      </div>
+      <div class="form-group">
+        <label for="customerPhone">เบอร์โทรศัพท์</label>
+        <input type="text" id="customerPhone" name="customerPhone" required />
+      </div>
+      <div class="form-group">
+        <label for="customerAddress">ที่อยู่จัดส่ง</label>
+        <textarea id="customerAddress" name="customerAddress" rows="3" required></textarea>
+      </div>
+      <button type="submit">ยืนยันการสั่งซื้อ</button>
     </form>
   </div>
 
-  <footer>
-    &copy; 2025 TRENDTRINITY
-  </footer>
-
   <script>
+    const products = [
+      { id: 1, name: "TrendtrinityX", price: 599, img: "X1.jpg" },
+      { id: 2, name: "TrendtrinityOversize", price: 399, img: "Black.png.jpg" },
+      { id: 3, name: "Coming Soon", price: 0, img: "C1.jpg" },
+      { id: 4, name: "Coming Soon", price: 0, img: "C1.jpg" }
+    ];
+
     function renderCart() {
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
       const container = document.getElementById('cartList');
       container.innerHTML = '';
 
       if (cart.length === 0) {
-        container.innerHTML = '<p class="empty">ตะกร้าว่าง</p>';
-        document.getElementById('orderBtn').disabled = true;
+        container.innerHTML = '<p>ตะกร้าว่าง</p>';
         return;
-      } else {
-        document.getElementById('orderBtn').disabled = false;
       }
 
       cart.forEach((item, index) => {
         const div = document.createElement('div');
         div.className = 'cart-item';
         div.innerHTML = `
-          <div>${item.name} - ฿${item.price}</div>
-          <button onclick="removeFromCart(${index})">ลบ</button>
+          <span>${item.name} - ฿${item.price}</span>
+          <button type="button" onclick="removeFromCart(${index})">ลบ</button>
         `;
         container.appendChild(div);
       });
@@ -249,47 +127,43 @@
       renderCart();
     }
 
-    function sendNotification(orderDetails) {
-      console.log('ส่งแจ้งเตือนคำสั่งซื้อ:', orderDetails);
-    }
-
-    function validateForm(name, address) {
-      if (name.trim() === '' || address.trim() === '') {
-        alert('กรุณากรอกชื่อและที่อยู่ให้ครบถ้วน');
-        return false;
-      }
-      return true;
-    }
-
     document.getElementById('orderForm').addEventListener('submit', function (event) {
       event.preventDefault();
 
-      const name = document.getElementById('customerName').value;
-      const address = document.getElementById('customerAddress').value;
+      const name = document.getElementById('customerName').value.trim();
+      const phone = document.getElementById('customerPhone').value.trim();
+      const address = document.getElementById('customerAddress').value.trim();
       const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
       if (cart.length === 0) {
-        alert('ตะกร้าว่าง ไม่มีสินค้าให้สั่งซื้อ');
-        return;
-      }
-      if (!validateForm(name, address)) {
+        alert('ตะกร้าว่าง');
         return;
       }
 
-      let summary = `ชื่อผู้สั่งซื้อ: ${name}\nที่อยู่จัดส่ง:\n${address}\n\nรายการสินค้า:\n`;
+      let summary = `ชื่อ: ${name}\nเบอร์: ${phone}\nที่อยู่:\n${address}\n\nสินค้า:\n`;
       let total = 0;
       cart.forEach(item => {
-        summary += `- ${item.name} ราคา ${item.price} บาท\n`;
+        summary += `- ${item.name} (${item.price} บาท)\n`;
         total += item.price;
       });
-      summary += `รวมทั้งสิ้น: ${total} บาท`;
+      summary += `รวมทั้งหมด: ${total} บาท`;
 
       if (confirm(summary + '\n\nยืนยันการสั่งซื้อ?')) {
-        sendNotification(summary);
-        alert('รอการชำระเงินและยืนยัน ขอบคุณครับ!');
+        const order = {
+          name,
+          phone,
+          address,
+          items: cart,
+          total
+        };
+        const history = JSON.parse(localStorage.getItem('orderHistory')) || [];
+        history.push(order);
+        localStorage.setItem('orderHistory', JSON.stringify(history));
+
         localStorage.removeItem('cart');
         renderCart();
         this.reset();
+        alert('สั่งซื้อสำเร็จแล้ว รอชำระเงินขอบคุณค่ะ');
       }
     });
 
