@@ -11,7 +11,7 @@
       margin: 0;
       padding: 0;
       font-family: 'Poppins', sans-serif;
-      background-image: url('T1.JPG'); /* ← เปลี่ยนชื่อภาพได้ */
+      background-image: url('T1.JPG');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -182,6 +182,53 @@
       padding: 30px 30px;
       text-align: center;
     }
+
+    /* 🔥 ป๊อปอัพวิดีโอ */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .popup-content {
+      background-color: #000;
+      padding: 10px;
+      border-radius: 12px;
+      max-width: 90%;
+      width: 420px;
+      position: relative;
+    }
+
+    .popup-content video {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .popup .close-btn {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background: #fff;
+      border: none;
+      color: #000;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    }
   </style>
 </head>
 <body>
@@ -196,21 +243,20 @@
     </header>
 
     <div class="contact-bar">
-  <a href="https://www.facebook.com/-" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook Logo" /> Facebook
-  </a>
-  <a href="https://www.instagram.com/trendtrinityv?igsh=NGtoOTFqbjh3aDlw" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Logo" /> Instagram
-  </a>
-  <a href="https://www.tiktok.com/@" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok Logo" /> TikTok
-  </a>
-  <a href="https://line.me/R/ti/p/~Trendtrinity" target="_blank">
-    <img src="Line.png" alt="LINE Logo" /> LINE
-  </a>
-</div>
+      <a href="https://www.facebook.com/-" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook Logo" /> Facebook
+      </a>
+      <a href="https://www.instagram.com/trendtrinityv?igsh=NGtoOTFqbjh3aDlw" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Logo" /> Instagram
+      </a>
+      <a href="https://www.tiktok.com/@" target="_blank">
+        <img src="https://cdn-icons-png.flaticon.com/512/3046/3046120.png" alt="TikTok Logo" /> TikTok
+      </a>
+      <a href="https://line.me/R/ti/p/~Trendtrinity" target="_blank">
+        <img src="Line.png" alt="LINE Logo" /> LINE
+      </a>
+    </div>
 
-    <!-- ✅ กล่องข้อความต้อนรับที่ปิดได้ -->
     <div class="hero-message" id="heroMessage">
       <button class="close-btn" onclick="closeHero()">×</button>
       <h2>ยินดีต้อนรับสู่ TRENDTRINITY</h2>
@@ -225,6 +271,17 @@
   <footer>
     &copy; 2025 TRENDTRINITY
   </footer>
+
+  <!-- 🔥 ป๊อปอัพวิดีโอ -->
+  <div class="popup" id="videoPopup">
+    <div class="popup-content">
+      <button class="close-btn" onclick="closeVideo()">×</button>
+      <video autoplay muted playsinline controls>
+        <source src="your-video.mp4" type="clip.mp4" />
+        เบราว์เซอร์ของคุณไม่รองรับวิดีโอ
+      </video>
+    </div>
+  </div>
 
   <script>
     // ✅ ซ่อน hero message ถ้าเคยปิดแล้ว
@@ -272,7 +329,19 @@
       alert(`เพิ่ม "${product.name}" ลงตะกร้าเรียบร้อยแล้ว`);
     }
 
-    renderProducts();
+    // ✅ เปิดวิดีโอป๊อปอัพทุกครั้ง
+    window.addEventListener('load', () => {
+      openVideo();
+      renderProducts(); // อย่าลืมเรียกฟังก์ชันนี้เมื่อโหลด
+    });
+
+    function openVideo() {
+      document.getElementById("videoPopup").style.display = "flex";
+    }
+
+    function closeVideo() {
+      document.getElementById("videoPopup").style.display = "none";
+    }
   </script>
 </body>
 </html>
