@@ -164,13 +164,13 @@
     .slider {
       position: relative;
       width: 100%;
-      height: 450px; /* เพิ่มความสูงจาก 300px เป็น 450px */
+      height: 450px;
     }
 
     .slide {
       display: none;
       width: 100%;
-      height: 450px; /* เพิ่มความสูงจาก 300px เป็น 450px */
+      height: 450px;
       object-fit: cover;
     }
 
@@ -320,6 +320,7 @@
     // สไลด์รูปภาพ
     let currentSlide = 0;
     const slides = document.querySelectorAll(".slide");
+    let slideInterval;
 
     function showSlide(index) {
       if (index >= slides.length) currentSlide = 0;
@@ -333,10 +334,21 @@
 
     function changeSlide(n) {
       showSlide(currentSlide + n);
+      resetSlideInterval();
     }
 
-    // เริ่มสไลด์แรก
+    function autoSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function resetSlideInterval() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(autoSlide, 4000);
+    }
+
+    // เริ่มสไลด์แรก และตั้งเวลาเลื่อนอัตโนมัติ
     showSlide(currentSlide);
+    slideInterval = setInterval(autoSlide, 2600);
   </script>
 
 </body>
